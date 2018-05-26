@@ -13,6 +13,8 @@ public class CubeController : MonoBehaviour {
 	//地面の位置
 	private float groundLevel = -3.0f;
 
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,18 +22,21 @@ public class CubeController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//キューブが地面についているかの確認
-		bool isGround = (transform.position.y > this.groundLevel) ? false: true;
-
-		//キューブまたは地面に衝突時に音をだす
-		GetComponent<AudioSource>().volume = (isGround || tag == "CubePrefabTax") ? 1 : 0;
-
+		
 		//キューブを移動させる
 		transform.Translate (this.speed, 0, 0);
 
 		//画面外に出たら破棄する
 		if (transform.position.x < this.deadLine) {
 			Destroy (gameObject);
+		}
+	}
+
+	//衝突時
+	void OnCollisionEnter2D(Collision2D collision){
+		if (tag == "groundTag" || tag == "CubePrefabTag") {
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.Play ();
 		}
 	}
 }
