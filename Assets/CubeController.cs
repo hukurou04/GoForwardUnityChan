@@ -34,7 +34,8 @@ public class CubeController : MonoBehaviour {
 
 	//衝突時
 	void OnCollisionEnter2D(Collision2D collision){
-		if (tag == "groundTag" || tag == "CubePrefabTag") {
+		//if (tag == "groundTag" || tag == "CubePrefabTag") {   ←は間違い
+		if(collision.gameObject.tag == "groundTag" || collision.gameObject.tag == "CubePrefabTag"){
 			AudioSource audio = GetComponent<AudioSource> ();
 			audio.Play ();
 		}
